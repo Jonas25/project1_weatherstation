@@ -1,0 +1,54 @@
+{% import "macros/macro.html" as macro %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="Voorbeeld pagina">
+    <meta name="author" content="Voorbeeld">
+    <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+    <link rel="stylesheet" href="{{ url_for("static",filename="css/styles.css") }}">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+<header>
+    <a href="index.html" id="logo"></a>
+    <a href="#" class="btn red btnHeader">Logout</a>
+</header>
+<div class="content">
+    <nav>
+        <ul>
+            <li><a {% block dashboard %}{% endblock %} href="{{ url_for("dashboard") }}">Dashboard</a></li>
+            <li><a {% block contact %}{% endblock %} href="{{ url_for("contact") }}">Contact</a></li>
+        </ul>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+</div>
+<footer class="footer-distributed">
+
+    <div class="footer-right">
+        {{ macro.build_social_link("facebook") }}
+        {{ macro.build_social_link("youtube") }}
+        {{ macro.build_social_link("twitter") }}
+        {{ macro.build_social_link("linkedin") }}
+    </div>
+
+    <div class="footer-left">
+
+        <p class="footer-links">
+            <a href="{{ url_for("dashboard") }}">Dashboard</a>
+            <a href="{{ url_for("contact") }}">Contact</a>
+        </p>
+
+        <p>Jonas Keppens 1NMCT1 &copy 2017</p>
+    </div>
+
+</footer>
+
+</body>
+
+</html>

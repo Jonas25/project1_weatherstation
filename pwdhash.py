@@ -64,7 +64,7 @@ def verify_credentials(username, password):
     params = {
         'check_name': username,
     }
-    result = db_.query(sql, params, True)
+    result = db_.query(sql, params)
 
     # als gebruiker niet bestaat moeten we niet verder kijken
     if not result:

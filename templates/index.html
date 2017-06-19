@@ -1,155 +1,94 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Weather Station Project 1</title>
-	<meta name="description" content="Voorbeeld pagina">
-	<meta name="author" content="Voorbeeld">
-	<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
-	<link rel="stylesheet" href="css/styles.css">
-</head>
+{% extends "base.html" %}
+{% block title %}
+    Weather Station Dashboard
+{% endblock %}
 
-<body>
-	<header>
-		<a href="index.html" id="logo"></a>
-        <a href="#" class="btn red btnHeader">Logout</a>
-	</header>
-<div class="content">
-	<nav>
-		<ul>
-			<li><a href="index.html" class="current">Dashboard</a></li>
-			<li><a href="#">Contact</a></li>
-		</ul>
-	</nav>
-	<section>
-        <img src="img/bg.png" alt="header images" class="bgImage" />
+{% block dashboard %}
+    class="current"
+{% endblock %}
+
+{% block body %}
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Meting','Temperature'],
+            {% for i in data_temp %}
+               [{{ loop.index }},{{ i[2] }}],
+            {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Temperature',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('graph_temp'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Meting','Humidity'],
+            {% for i in data_hum %}
+               [{{ loop.index }},{{ i[2] }}],
+            {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Humidity',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('graph_hum'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    <section>
+        <img src="{{ url_for("static",filename="img/bg.png") }}" alt="header images" class="bgImage"/>
         <div class="content-right">
 
-		<h1>Dashboard Weather Station</h1>
-<div class="content-graph">
-    <section>
-        <h2>Temperature</h2>
-        <div class="graph">
-
-        </div>
-    </section>
-    <section>
-        <h2>Humidity</h2>
-        <div class="graph">
-
-        </div>
-    </section>
-</div>
-           <div class="content-data">
-               <h2 class="clear">Current values</h2>
-               <section>
-                   Temp in<br>
-                   <span class="value">24°C</span>
-               </section>
-               <section>
+            <h1>Dashboard Weather Station</h1>
+            <div class="content-graph">
+                <section>
+                    <h2>Temperature</h2>
+                    <div id="graph_temp" style="width: 100%; height: auto"></div>
+                </section>
+                <section>
+                    <h2>Humidity</h2>
+                    <div id="graph_hum" style="width: 100%; height: auto"></div>
+                </section>
+            </div>
+            <div class="content-data">
+                <h2 class="clear">Current values</h2>
+                <section>
+                    Temp in<br>
+                    <span class="value">{% for i in last_temp_in %}{{ i[2]|round|int }}{% endfor %}°C</span>
+                </section>
+                <section>
                     Temp out<br>
-                   <span class="value">29°C</span>
-               </section>
-               <section>
+                    <span class="value">{% for i in last_temp_out %}{{ i[2]|round|int }}{% endfor %}°C</span>
+                </section>
+                <section>
                     Hum in<br>
-                   <span class="value">60%</span>
-               </section>
-               <section>
+                    <span class="value">{% for i in last_hum_in %}{{ i[2]|round|int }}{% endfor %}%</span>
+                </section>
+                <section>
                     Hum out<br>
-                   <span class="value">54%</span>
-               </section>
-           </div>
-	<h1>Responsive Table </h1>
-		
-		<table>
-			<thead>
-			    <tr>
-			      <th>Column 1</th>
-			      <th>Column 2</th>
-			      <th>Column 3</th>
-			      <th>Column 4</th>
-			      <th>Column 5</th>
-			    </tr>
-			</thead>
-			<tbody>
-			    <tr>
-			      <td>Data 1</td>
-			      <td>Data 2</td>
-			      <td>Data 3</td>
-			      <td>Data 4</td>
-			      <td>Data 5</td>
-			    </tr>
-			    <tr>
-			      <td>Data 1</td>
-			      <td>Data 2</td>
-			      <td>Data 3</td>
-			      <td>Data 4</td>
-			      <td>Data 5</td>
-			    </tr>
-			    <tr>
-			      <td>Data 1</td>
-			      <td>Data 2</td>
-			      <td>Data 3</td>
-			      <td>Data 4</td>
-			      <td>Data 5</td>
-			    </tr>
-			    <tr>
-			      <td>Data 1</td>
-			      <td>Data 2</td>
-			      <td>Data 3</td>
-			      <td>Data 4</td>
-			      <td>Data 5</td>
-			    </tr>
-			    <tr>
-			      <td>Data 1</td>
-			      <td>Data 2</td>
-			      <td>Data 3</td>
-			      <td>Data 4</td>
-			      <td>Data 5</td>
-			    </tr>
-			    <tr>
-			      <td>Data 1</td>
-			      <td>Data 2</td>
-			      <td>Data 3</td>
-			      <td>Data 4</td>
-			      <td>Data 5</td>
-			    </tr>
-			</tbody>
-		</table>
-
-		<h1>Buttons</h1>
-
-		<a href="#" class="btn red">Red</a>
-		<a href="#fakeLink" class="btn orange">Orange</a>
-		<a href="#fakeLink" class="btn blue circular">Blue</a>
-		<a href="#fakeLink" class="btn teal circular">Teal</a>
+                    <span class="value">{% for i in last_hum_out %}{{ i[2]|round|int }}{% endfor %}%</span>
+                </section>
+            </div>
 
         </div>
-	</section>
-</div>
-	<footer class="footer-distributed">
-
-			<div class="footer-right">
-
-				<a href="https://facebook.com" target="_blank"><img src="img/facebook.png" height="100%" width="100%"/></a>
-				<a href="https://youtube.com" target="_blank"><img src="img/youtube.png" height="100%" width="100%"/></a>
-				<a href="https://twitter.com" target="_blank"><img src="img/twitter.png" height="100%" width="100%"/></a>
-				<a href="https://linkedin.com" target="_blank"><img src="img/linkedin.png" height="100%" width="100%"/></a>
-
-			</div>
-
-			<div class="footer-left">
-
-				<p class="footer-links">
-					<a href="#">Dashboard</a>
-					<a href="#">Contact</a>
-				</p>
-
-				<p>Jonas Keppens 1NMCT1 &copy 2017</p>
-			</div>
-
-	</footer>
-
-</body>
-
-</html>
+    </section>
+{% endblock %}

@@ -39,7 +39,6 @@
       <data-type>varchar(15)|0</data-type>
     </column>
     <column id="16" parent="6" name="Unit">
-      <mandatory>1</mandatory>
       <data-type>varchar(5)|0</data-type>
     </column>
     <column id="17" parent="6" name="Place">

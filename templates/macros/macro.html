@@ -1,0 +1,4 @@
+{% macro build_social_link(naam) %}
+    <a href="{{ "https://"+naam+".com" }}" target="_blank"><img
+            src="{{ url_for("static",filename="img/"+naam+".png") }}" height="100%" width="100%"/></a>
+{% endmacro %}
